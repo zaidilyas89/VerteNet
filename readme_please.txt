@@ -1,0 +1,1 @@
+unzip timm_local.rar in the main folder
