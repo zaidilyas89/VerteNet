@@ -15,7 +15,6 @@ from shutil import copy
 folder1 = './clsa'
 dst_folder = './dcm'
 folder_paths1 = glob(os.path.join(folder1,'*'))
-folder_paths2 = glob(os.path.join(folder2,'*'))
 for file_path in folder_paths1:
     fname = file_path.split('\\')[-1]
     src = os.path.join(file_path,'dxa_lateral.dcm')
