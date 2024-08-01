@@ -14,7 +14,7 @@ from shutil import copy
 
 folder1 = './New400'
 folder2 = './Scans'
-dst_folder = './combined'
+dst_folder = './dcm'
 folder_paths1 = glob(os.path.join(folder1,'*'))
 folder_paths2 = glob(os.path.join(folder2,'*'))
 for file_path in folder_paths1:
