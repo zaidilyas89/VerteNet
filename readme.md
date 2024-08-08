@@ -37,17 +37,17 @@ python main.py ----phase train
 ```
 
 ### Test Model
-For the prediction on new images, first place the trained model's file as `\weights_spinal\model_last.pth`, and then place the images in .jpg format in the  `\datapath\data\test` folder and then run the following command:
+For the prediction on new images, first place the trained model's file as `./weights_spinal/model_last.pth`, and then place the images in .jpg format in the  `./datapath/data/test` folder and then run the following command:
 ```
 python main.py --phase test 
 ```
-The predictions would be saved in the following form:
+The predictions would be saved in the folder`./detailed_outputs`in the following form:
 ```
-|-- detailed_outputss     
+|-- detailed_outputs
     |-- images_with_landmarks_and_IVGs
     |-- images_with_landmarks_only
     |-- images_with_offset_vectors
     |-- landmarks
     |-- original_images
-``` 
 ```
+
