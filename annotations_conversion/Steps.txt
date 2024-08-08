@@ -1,0 +1,6 @@
+Step1: Annotate images using makesense.ai (Offline version preferably)
+Link to the tool: https://github.com/SkalskiP/make-sense?tab=readme-ov-file.
+Step2: Make a folder with the same name as .csv file except the file extension.
+Step3: Use csv_to_matfiles.m to convert files to individual mat files as per the format. 
+Step4: Place the images and the corresponding labels (in .mat format) into the directories './datapath/data/train' and './datapath/labels/train'
+respectively.
