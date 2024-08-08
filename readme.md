@@ -30,3 +30,14 @@ For training, testing, and prediction using VerteNet, make sure the directory li
             valimage2.jpg.mat
             ...     
 ```
+### Train Model
+To train the model, place the images and corresponding labels in the subdirectories as shown above and then run following command:
+```
+python main.py ----phase train
+```
+
+### Test Model
+For the prediction on new images, place the images in .jpg format in the  `\datapath\data\test` folder
+```
+python main.py --phase test 
+
