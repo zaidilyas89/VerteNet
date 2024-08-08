@@ -53,4 +53,10 @@ The predictions would be saved in the folder`./detailed_outputs`in the following
     |-- landmarks
     |-- original_images
 ```
+## Abdominal Aorta Crop Detection
+For the abdominal aorta crop detection, performs following steps:
+```
+Make a folder 
+Copy the `detailed_outputs`
+```
 
