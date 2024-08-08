@@ -30,13 +30,15 @@ For training, testing, and prediction using VerteNet, make sure the directory li
             valimage2.jpg.mat
             ...     
 ```
-### Train Model
+## Data Annotation
+For data annotation, we used makesense.ai tools in the offline mode. Link to download the offline version: `https://github.com/SkalskiP/make-sense?tab=readme-ov-file`
+## Train Model
 To train the model, place the images and corresponding labels in the subdirectories as shown above and then run following command:
 ```
 python main.py ----phase train
 ```
 
-### Test Model
+## Test Model
 For the prediction on new images, first place the trained model's file as `./weights_spinal/model_last.pth`, and then place the images in .jpg format in the  `./datapath/data/test` folder and then run the following command:
 ```
 python main.py --phase test 
