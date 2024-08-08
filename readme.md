@@ -9,6 +9,9 @@ For training, testing, and prediction using VerteNet, make sure the directory li
 |-- datapath     
     |-- data
         |--train
+            image1.png
+            image2.png
+            ...
         |--test
         |--val        
     |--labels
