@@ -31,7 +31,7 @@ For training, testing, and prediction using VerteNet, make sure the directory li
             ...     
 ```
 ## Data Annotation
-For data annotation, we used [makesense](https://github.com/SkalskiP/make-sense?tab=readme-ov-file) tools in the offline mode. Link to download the offline version: 
+For data annotation, we used [makesense](https://github.com/SkalskiP/make-sense?tab=readme-ov-file) tools in the offline mode. While annotating images, keep the orientation of images as per the input image shown in the architecture image above. For the conversion of landmarks take the steps mentioned in [steps](annotations_conversion/Steps)
 
 ## Train Model
 To train the model, place the images and corresponding labels in the subdirectories as shown above and then run following command:
