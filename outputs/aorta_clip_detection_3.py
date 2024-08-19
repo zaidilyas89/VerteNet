@@ -59,7 +59,7 @@ def spline_fit_check(n, m, img, img2, mean_vertebral_width,FACTOR, pts_detailed,
     return x_mid, y_mid, points, flag_z
 
 
-def check_black_or_white_regions(data, FACTOR, img, pts_detailed, mean_vertebral_width, img_name, spline_save_folder):
+def check_black_or_white_regions(data, FACTOR, img, pts_detailed, mean_vertebral_width, img_name, spline_save_folder, dpi):
     img2 = img.copy()
     
     n = ['Mean_L1_Right','middle_1_right_L1_L2', 'middle_2_right_L1_L2',
@@ -86,12 +86,12 @@ def check_black_or_white_regions(data, FACTOR, img, pts_detailed, mean_vertebral
     # else:
     #     flag2 = 0
     
-    plt.savefig(os.path.join(spline_save_folder,'Aorta_Clip_Flag_'+str(flag_z_1)+'_'+img_name), dpi=600)
+    plt.savefig(os.path.join(spline_save_folder,'Aorta_Clip_Flag_'+str(flag_z_1)+'_'+img_name), dpi=dpi)
     plt.close()
     return flag_z_1
 
 
-def aorta_clip_detection(img, img_with_IVGs, pts_detailed, img_name, FACTOR = 0, check_region_clipping = False, spline_save_folder = None):
+def aorta_clip_detection(img, img_with_IVGs, pts_detailed, img_name, FACTOR = 0, check_region_clipping = False, spline_save_folder = None, dpi = None):
     border_clip_flag = 0 
     region_clip_flag = 0
     data = np.array([pts_detailed['Mean_L1_Left'], pts_detailed['Mean_L1_Right'], 
@@ -130,7 +130,7 @@ def aorta_clip_detection(img, img_with_IVGs, pts_detailed, img_name, FACTOR = 0,
     # if border_clip_flag == 0 and check_region_clipping == True:
 
     try:
-        region_clip_flag = check_black_or_white_regions(data, FACTOR, img, pts_detailed, mean_vertebral_width, img_name, spline_save_folder)
+        region_clip_flag = check_black_or_white_regions(data, FACTOR, img, pts_detailed, mean_vertebral_width, img_name, spline_save_folder, dpi)
         
     except Exception:
     # Ignore the exception and continue
