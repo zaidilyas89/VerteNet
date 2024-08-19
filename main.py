@@ -1,14 +1,14 @@
 import argparse
-import aa_detailed, aa_guidenet_pp
-import train, train_guidenet_pp
+import aa_detailed, aa_vertenet, aa_unet
+import train, train_vertenet
 from sys import exit
 import eval
 from ipywidgets import IntProgress
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='CenterNet Modification Implementation')
+    parser = argparse.ArgumentParser(description='VerteNet')
     parser.add_argument('--num_epoch', type=int, default=50, help='Number of epochs')
-    parser.add_argument('--batch_size', type=int, default=8, help='Number of epochs')
+    parser.add_argument('--batch_size', type=int, default=4, help='Number of epochs')
     parser.add_argument('--num_workers', type=int, default=0, help='Number of workers')
     parser.add_argument('--init_lr', type=float, default=1.25e-4, help='Init learning rate')
     parser.add_argument('--down_ratio', type=int, default=4, help='down ratio')
@@ -21,8 +21,9 @@ def parse_args():
     parser.add_argument('--ngpus', type=int, default=1, help='number of gpus')
     parser.add_argument('--resume', type=str, default='model_last.pth', help='weights to be resumed')
     parser.add_argument('--data_dir', type=str, default='./dataPath', help='data directory')
-    parser.add_argument('--phase', type=str, default='train', help='data directory')
+    parser.add_argument('--phase', type=str, default='test', help='data directory')
     parser.add_argument('--dataset', type=str, default='spinal', help='data directory')
+    parser.add_argument('--dxa_dataset', type=str, default='clsa', help='dxa_data directory')
     args = parser.parse_args()
     return args
 
@@ -30,12 +31,8 @@ def parse_args():
 if __name__ == '__main__':
     args = parse_args()
     if args.phase == 'train':
-        is_object = train_guidenet_pp.Network(args)
+        is_object = train_vertenet.Network(args)
         is_object.train_network(args)
     elif args.phase == 'test':
-        is_object = aa_detailed.Network(args)
+        is_object = aa_vertenet.Network(args)
         is_object.test(args, save=False)
-    elif args.phase == 'eval':
-        is_object = eval.Network(args)
-        is_object.eval(args, save=False)
-        # is_object.eval_three_angles(args, save=False)
