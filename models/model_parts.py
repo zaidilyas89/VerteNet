@@ -130,7 +130,6 @@ class LayerNorm_Channel(nn.Module):
         return to_4d(self.body(to_3d(x)), h, w)
 
 ##########################################################################
-## Gated-Dconv Feed-Forward Network (GDFN)
 class FeedForward(nn.Module):
     def __init__(self, dim, ffn_expansion_factor, bias):
         super(FeedForward, self).__init__()
