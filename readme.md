@@ -64,9 +64,13 @@ python sorting_and_combining_and_naming.py --src_folder_path ./23SP004_F2 --dst_
 python dcm_to_jpg.py --src_folder_path ./dcm2 --dst_folder_path ./23SP004_F2_jpgs --min_value 0 --max_value 4096
 ```
 **Note**: It is important to manually check few images of the DICOM files for the maximum and minimum value range for the pixels. If for example, you find a value of 3998 as a maximum value and a minimum value of 0, then you need to select min value =0, and max value =4096 (multiple of 2). DO NOT select as 3998 or 4000. It is important to manually check few images of the DICOM files for the maximum and minimum value range for the pixels. If for example, you find a value of 3998 as a maximum value and a minimum value of 0, then you need to select min value =0, and max value =4096 (multiple of 2). DO NOT select as 3998 or 4000.
+
 **Step 3**: Copy the jpg files to ```./VerteNet/dataPath/data/test```
+
 **Step 4**: Paste the trained model file at the location ```./VerteNet/weights_spinal/model_last.pth.```
+
 **Step 5**: Run the following command to get predictions from VerteNet: 
+
 ```
 python main.py --phase test --dxa_dataset clsa
 ```
