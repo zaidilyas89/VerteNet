@@ -130,6 +130,7 @@ class LayerNorm_Channel(nn.Module):
         return to_4d(self.body(to_3d(x)), h, w)
 
 ##########################################################################
+## Gated-Dconv Feed-Forward Network (GDFN)
 class FeedForward(nn.Module):
     def __init__(self, dim, ffn_expansion_factor, bias):
         super(FeedForward, self).__init__()
@@ -149,9 +150,9 @@ class FeedForward(nn.Module):
         x = self.project_out(x)
         return x
 
-class DRSA_CrossAttention(nn.Module):
+class DR__CrossAttention(nn.Module):
     def __init__(self, dim, num_heads, bias, channels, patch_size):
-        super(DRSA_CrossAttention, self).__init__()
+        super(DR__CrossAttention, self).__init__()
         self.num_heads = num_heads
         self.temperature = nn.Parameter(torch.ones(num_heads, 1, 1))
         self.patch_size = patch_size
@@ -265,9 +266,9 @@ class DRSA_CrossAttention(nn.Module):
         return out 
     
     
-class DRSA_SelfAttention(nn.Module):
+class DR__SelfAttention(nn.Module):
     def __init__(self, dim, num_heads, bias, channels, patch_size):
-        super(DRSA_SelfAttention, self).__init__()
+        super(DR__SelfAttention, self).__init__()
         self.num_heads = num_heads
         self.temperature = nn.Parameter(torch.ones(num_heads, 1, 1))
         self.patch_size = patch_size
@@ -446,14 +447,14 @@ class TransformerBlock(nn.Module):
         x = rearrange(x, 'b c (h w) -> b c h w', h = h, w = w)
         return x
 
-class DRCA_DRSATransformerBlock(nn.Module):
+class DRCA_DR_TransformerBlock(nn.Module):
     def __init__(self, dim=None, patch_size=8, channels=None, num_heads=None, ffn_expansion_factor=None, bias=False, LayerNorm_type='WithBias'):
-        super(DRCA_DRSATransformerBlock, self).__init__()
+        super(DRCA_DR_TransformerBlock, self).__init__()
         self.dim = dim
         self.patch_size = patch_size
         self.channels = channels
         self.norm1 = LayerNorm(dim, LayerNorm_type)
-        self.attn = DRSA_CrossAttention(dim, num_heads, bias, channels, self.patch_size)
+        self.attn = DR__CrossAttention(dim, num_heads, bias, channels, self.patch_size)
         self.norm2 = LayerNorm(dim, LayerNorm_type)
         self.ffn = FeedForward(channels, ffn_expansion_factor, bias)
         
@@ -481,14 +482,14 @@ class DRCA_DRSATransformerBlock(nn.Module):
         
         return
 
-class DRSA_DRSATransformerBlock(nn.Module):
+class DRSA_DR_TransformerBlock(nn.Module):
     def __init__(self, dim=None, patch_size=8, channels=None, num_heads=None, ffn_expansion_factor=None, bias=False, LayerNorm_type='WithBias'):
-        super(DRSA_DRSATransformerBlock, self).__init__()
+        super(DRSA_DR_TransformerBlock, self).__init__()
         self.dim = dim
         self.patch_size = patch_size
         self.channels = channels
         self.norm1 = LayerNorm(dim, LayerNorm_type)
-        self.attn = DRSA_SelfAttention(dim, num_heads, bias, channels, self.patch_size)
+        self.attn = DR__SelfAttention(dim, num_heads, bias, channels, self.patch_size)
         self.norm2 = LayerNorm(dim, LayerNorm_type)
         self.ffn = FeedForward(channels, ffn_expansion_factor, bias)
         
@@ -596,11 +597,11 @@ class CombinationModule_proposed(nn.Module):
         # self.t_s_block1 = TransformerBlock(dim=8*8, head_size=10, channels=c_up, num_heads=1, ffn_expansion_factor=2, bias=False, LayerNorm_type='WithBias')
         # self.t_s_block2 = TransformerBlock(dim=10*10, head_size=10, channels=512, num_heads=1, ffn_expansion_factor=2, bias=False, LayerNorm_type='WithBias')
         
-        # self.t_DRSA_block2 = DRSATransformerBlock(dim=20*20, channels=96, num_heads=1, ffn_expansion_factor=2, bias=False, LayerNorm_type='WithBias')
-        self.t_drsa_decoder_block_ = DRSA_DRSATransformerBlock(dim=dim, patch_size=patch_size, channels=c_up, num_heads=1, ffn_expansion_factor=2, bias=False, LayerNorm_type='WithBias')
-        self.t_drsa_skip_block_ = DRSA_DRSATransformerBlock(dim=dim, patch_size=patch_size, channels=c_up, num_heads=1, ffn_expansion_factor=2, bias=False, LayerNorm_type='WithBias')
-        self.t_drca_decoder_block_ = DRCA_DRSATransformerBlock(dim=dim, patch_size=patch_size, channels=c_up, num_heads=1, ffn_expansion_factor=2, bias=False, LayerNorm_type='WithBias')
-        self.t_drca_skip_block_ = DRCA_DRSATransformerBlock(dim=dim, patch_size=patch_size, channels=c_up, num_heads=1, ffn_expansion_factor=2, bias=False, LayerNorm_type='WithBias')
+        # self.t_DR__block2 = DR_TransformerBlock(dim=20*20, channels=96, num_heads=1, ffn_expansion_factor=2, bias=False, LayerNorm_type='WithBias')
+        self.t_drsa_decoder_block_ = DRSA_DR_TransformerBlock(dim=dim, patch_size=patch_size, channels=c_up, num_heads=1, ffn_expansion_factor=2, bias=False, LayerNorm_type='WithBias')
+        self.t_drsa_skip_block_ = DRSA_DR_TransformerBlock(dim=dim, patch_size=patch_size, channels=c_up, num_heads=1, ffn_expansion_factor=2, bias=False, LayerNorm_type='WithBias')
+        self.t_drca_decoder_block_ = DRCA_DR_TransformerBlock(dim=dim, patch_size=patch_size, channels=c_up, num_heads=1, ffn_expansion_factor=2, bias=False, LayerNorm_type='WithBias')
+        self.t_drca_skip_block_ = DRCA_DR_TransformerBlock(dim=dim, patch_size=patch_size, channels=c_up, num_heads=1, ffn_expansion_factor=2, bias=False, LayerNorm_type='WithBias')
         
         self.channel_transformer = Channel_Transformer(dim=c_up, num_heads = 2, ffn_expansion_factor=2, bias=False, LayerNorm_type='WithBias')
         
