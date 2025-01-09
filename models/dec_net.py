@@ -94,9 +94,9 @@ class DecNet(nn.Module):
     
     
     
-class DecNet_guidenet_pp(nn.Module):
+class DecNet_vertenet(nn.Module):
     def __init__(self, heads, final_kernel, head_conv, channel):
-        super(DecNet_guidenet_pp, self).__init__()
+        super(DecNet_vertenet, self).__init__()
         self.dec_c2 = CombinationModule_proposed(64, 48, batch_norm=True, patch_size = 8, dim = 256*128)
         self.dec_c3 = CombinationModule_proposed(160, 64, batch_norm=True, patch_size = 8, dim = 128*64)
         self.dec_c4 = CombinationModule_proposed(256, 160, batch_norm=True, patch_size = 8, dim = 64*32)
